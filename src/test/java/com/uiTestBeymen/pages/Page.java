@@ -47,6 +47,9 @@ public class Page extends TestBase {
     @FindBy(xpath = "//*[@class='m-notification__button btn']")
     public WebElement goToBasketButton;
 
+    @FindBy(css = ".m-productPrice__salePrice")
+    public WebElement salePrice;
+
     String prodPrice;
 
 
@@ -143,6 +146,13 @@ public class Page extends TestBase {
         goToBasketButton.click();
 
         BrowserUtils.waitFor(1);
+    }
+
+    public void verifyProductPrice () {
+        BrowserUtils.waitForVisibility(salePrice, 5);
+        String cartPrice = salePrice.getText();
+
+        Assert.assertEquals(prodPrice, cartPrice);
     }
 
 

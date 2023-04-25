@@ -30,6 +30,8 @@ public class Beymen extends Page {
 
         goToBasket();
 
+        verifyProductPrice();
+
 
 
 
