@@ -2,7 +2,6 @@ package com.uiTestBeymen.features;
 
 import com.uiTestBeymen.pages.Page;
 import org.junit.Test;
-
 import org.openqa.selenium.Keys;
 
 public class Beymen extends Page {

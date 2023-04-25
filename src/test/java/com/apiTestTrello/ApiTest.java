@@ -5,11 +5,8 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.Before;
 import org.junit.Test;
-
-
 import java.util.Arrays;
 import java.util.Random;
-
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 

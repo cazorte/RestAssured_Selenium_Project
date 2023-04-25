@@ -12,9 +12,9 @@ import org.openqa.selenium.support.ui.Select;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
+
 import java.util.List;
-import java.util.NoSuchElementException;
+
 import java.util.Random;
 
 public class Page extends TestBase {
