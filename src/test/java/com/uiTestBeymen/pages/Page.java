@@ -8,6 +8,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Random;
 
@@ -28,6 +31,12 @@ public class Page extends TestBase {
 
     @FindBy(xpath = "//*[@class='m-productImageList']")
     public List<WebElement> allProductList;
+
+    @FindBy(xpath = "//*[@class='o-productDetail__description']")
+    public WebElement productName;
+
+    @FindBy(css = "#priceNew")
+    public WebElement productPrice;
 
 
 
@@ -77,11 +86,28 @@ public class Page extends TestBase {
 
     public void chooseOneProduct () {
 
+        BrowserUtils.waitFor(3);
+
         Random rn = new Random();
         int a = rn.nextInt(allProductList.size());
         BrowserUtils.waitFor(1);
         allProductList.get(a).click();
         BrowserUtils.waitFor(1);
+    }
+
+    public void gatherProductInfo () {
+
+        BrowserUtils.waitFor(2);
+        try {
+            FileWriter fileWriter = new FileWriter("prod.txt");
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.println("Ürün bilgisi : " + productName.getText());
+            printWriter.println("Fiyat : " + productPrice.getText());
+            printWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
