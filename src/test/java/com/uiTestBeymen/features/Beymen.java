@@ -26,6 +26,12 @@ public class Beymen extends Page {
 
         gatherProductInfo();
 
+        addToBasket();
+
+        goToBasket();
+
+
+
 
 
 

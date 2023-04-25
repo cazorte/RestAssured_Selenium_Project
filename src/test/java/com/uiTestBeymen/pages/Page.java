@@ -38,7 +38,16 @@ public class Page extends TestBase {
     @FindBy(css = "#priceNew")
     public WebElement productPrice;
 
+    @FindBy(xpath = "//*[contains(@class, 'm-variation__item')]")
+    public List<WebElement> allBodySizeList;
 
+    @FindBy(css = "#addBasket")
+    public WebElement addBasketButton;
+
+    @FindBy(xpath = "//*[@class='m-notification__button btn']")
+    public WebElement goToBasketButton;
+
+    String prodPrice;
 
 
     public void goToMainPage() {
@@ -105,9 +114,35 @@ public class Page extends TestBase {
             printWriter.println("Fiyat : " + productPrice.getText());
             printWriter.close();
 
+            prodPrice = productPrice.getText();
+            System.out.println("prodPrice = " + prodPrice);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+    }
+
+    public void addToBasket () {
+        for (int i = 0; i < allBodySizeList.size(); i++) {
+            allBodySizeList.get(i).click();
+
+            if (allBodySizeList.get(i).getAttribute("class").contains("active")) {
+                break;
+            }
+        }
+
+        addBasketButton.click();
+
+        BrowserUtils.waitFor(1);
+    }
+
+    public void goToBasket(){
+        BrowserUtils.waitForClickablility(goToBasketButton, 5);
+        goToBasketButton.click();
+
+        BrowserUtils.waitFor(1);
     }
 
 
