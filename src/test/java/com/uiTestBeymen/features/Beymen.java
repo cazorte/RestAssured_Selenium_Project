@@ -32,7 +32,7 @@ public class Beymen extends Page {
 
         verifyProductPrice();
 
-        increasePieceOfProductIfWeHave();
+        tryToIncreaseQuantity();
 
         clearProduct();
 

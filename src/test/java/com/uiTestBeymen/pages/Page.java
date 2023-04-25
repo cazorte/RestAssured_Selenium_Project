@@ -95,12 +95,12 @@ public class Page extends TestBase {
         ExcelUtil exc = new ExcelUtil("src/test/Resources/searchKeywords.xlsx", "Sheet1");
 
         String[][] dataArray = exc.getDataArray();
-        String[] allURL = new String[exc.columnCount()];
+        String[] rowArray = new String[exc.columnCount()];
 
-        for (int i = 0; i < allURL.length; i++) {
-            allURL[i] = dataArray[0][i].trim();
+        for (int i = 0; i < rowArray.length; i++) {
+            rowArray[i] = dataArray[0][i].trim();
         }
-        return allURL;
+        return rowArray;
     }
 
     public void clearSearchBar() {
@@ -167,7 +167,7 @@ public class Page extends TestBase {
         Assert.assertEquals(prodPrice, cartPrice);
     }
 
-    public void increasePieceOfProductIfWeHave (){
+    public void tryToIncreaseQuantity (){
         BrowserUtils.waitFor(2);
         Select select = new Select(quantityDropDown);
 
