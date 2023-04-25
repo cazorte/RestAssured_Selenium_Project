@@ -8,6 +8,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+import java.util.Random;
+
 public class Page extends TestBase {
 
     public Page() {
@@ -22,6 +25,9 @@ public class Page extends TestBase {
 
     @FindBy(css = "button#genderManButton")
     public WebElement genderManButton;
+
+    @FindBy(xpath = "//*[@class='m-productImageList']")
+    public List<WebElement> allProductList;
 
 
 
@@ -68,6 +74,18 @@ public class Page extends TestBase {
         searchBox.sendKeys(Keys.CONTROL + "a" + Keys.DELETE);
         BrowserUtils.waitFor(2);
     }
+
+    public void chooseOneProduct () {
+
+        Random rn = new Random();
+        int a = rn.nextInt(allProductList.size());
+        BrowserUtils.waitFor(1);
+        allProductList.get(a).click();
+        BrowserUtils.waitFor(1);
+    }
+
+
+
 
 
 

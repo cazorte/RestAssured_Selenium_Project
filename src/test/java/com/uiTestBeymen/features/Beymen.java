@@ -22,6 +22,8 @@ public class Beymen extends Page {
 
         searchBox.sendKeys(Keys.ENTER);
 
+        chooseOneProduct();
+
 
 
 
