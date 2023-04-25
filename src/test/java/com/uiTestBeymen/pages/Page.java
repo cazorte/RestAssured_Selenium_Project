@@ -1,9 +1,6 @@
 package com.uiTestBeymen.pages;
 
-import com.utils.BrowserUtils;
-import com.utils.ConfigReader;
-import com.utils.Driver;
-import com.utils.TestBase;
+import com.utils.*;
 import org.junit.Assert;
 
 import org.openqa.selenium.WebElement;
@@ -28,7 +25,7 @@ public class Page extends TestBase {
 
 
 
-    public void mainPage() {
+    public void goToMainPage() {
         Driver.get().get(ConfigReader.get("url"));
 
         BrowserUtils.waitForClickablility(cookies, 5);
@@ -40,11 +37,30 @@ public class Page extends TestBase {
         genderManButton.click();
     }
 
-    public void checkMainPage() {
+    public void validateTitle(String title) {
         String actualTitle = Driver.get().getTitle();
-        String expectedTitle = "Beymen.com – Türkiye’nin Tek Dijital Lüks Platformu";
 
-        Assert.assertEquals(expectedTitle, actualTitle);
+
+        Assert.assertEquals(title, actualTitle);
+    }
+
+    public void textToSearchBar(String str) {
+        searchBox.click();
+        searchBox.sendKeys(str);
+        BrowserUtils.waitFor(2);
+    }
+
+    public String[] readExcelFile() {
+
+        ExcelUtil qa3short = new ExcelUtil("src/test/Resources/searchKeywords.xlsx", "Sheet1");
+
+        String[][] dataArray = qa3short.getDataArray();
+        String[] allURL = new String[qa3short.columnCount()];
+
+        for (int i = 0; i < allURL.length; i++) {
+            allURL[i] = dataArray[0][i].trim();
+        }
+        return allURL;
     }
 
 

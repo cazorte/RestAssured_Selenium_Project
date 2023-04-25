@@ -9,9 +9,13 @@ public class Beymen extends Page {
     public void e2eTest(){
 
 
-        mainPage();
+        goToMainPage();
 
-        checkMainPage();
+        validateTitle("Beymen.com – Türkiye’nin Tek Dijital Lüks Platformu");
+
+        textToSearchBar(readExcelFile()[0]);
+
+
 
 
 
