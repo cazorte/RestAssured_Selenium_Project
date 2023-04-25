@@ -7,11 +7,14 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 public class Page extends TestBase {
@@ -50,6 +53,15 @@ public class Page extends TestBase {
     @FindBy(css = ".m-productPrice__salePrice")
     public WebElement salePrice;
 
+    @FindBy(xpath = "//*[@class='a-selectControl -small']")
+    public WebElement quantityDropDown;
+
+    @FindBy(xpath = "//*[@class='m-basket__remove btn-text']")
+    public WebElement removeButton;
+
+    @FindBy(xpath = "//*[text()='Sepetinizde Ürün Bulunmamaktadır']")
+    public WebElement clearMessage;
+
     String prodPrice;
 
 
@@ -66,8 +78,8 @@ public class Page extends TestBase {
     }
 
     public void validateTitle(String title) {
-        String actualTitle = Driver.get().getTitle();
 
+        String actualTitle = Driver.get().getTitle();
 
         Assert.assertEquals(title, actualTitle);
     }
@@ -80,10 +92,10 @@ public class Page extends TestBase {
 
     public String[] readExcelFile() {
 
-        ExcelUtil qa3short = new ExcelUtil("src/test/Resources/searchKeywords.xlsx", "Sheet1");
+        ExcelUtil exc = new ExcelUtil("src/test/Resources/searchKeywords.xlsx", "Sheet1");
 
-        String[][] dataArray = qa3short.getDataArray();
-        String[] allURL = new String[qa3short.columnCount()];
+        String[][] dataArray = exc.getDataArray();
+        String[] allURL = new String[exc.columnCount()];
 
         for (int i = 0; i < allURL.length; i++) {
             allURL[i] = dataArray[0][i].trim();
@@ -118,7 +130,7 @@ public class Page extends TestBase {
             printWriter.close();
 
             prodPrice = productPrice.getText();
-            System.out.println("prodPrice = " + prodPrice);
+            //System.out.println("Ödenecek tutar = " + prodPrice);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -153,6 +165,37 @@ public class Page extends TestBase {
         String cartPrice = salePrice.getText();
 
         Assert.assertEquals(prodPrice, cartPrice);
+    }
+
+    public void increasePieceOfProductIfWeHave (){
+        BrowserUtils.waitFor(2);
+        Select select = new Select(quantityDropDown);
+
+        try {
+            select.selectByIndex(1);
+
+            BrowserUtils.waitFor(2);
+            Assert.assertEquals("2 adet", select.getFirstSelectedOption().getText());
+
+        } catch (Exception e ) {
+            e.printStackTrace();
+            Assert.assertEquals("1 adet", select.getFirstSelectedOption().getText());
+            System.out.println("MALESEF BU ÜRÜNDEN TEK ADET KALMIŞTIR, TEST TEK ADET İÇİN DEVAM EDECEKTİR...");
+        }
+
+        BrowserUtils.waitFor(1);
+
+    }
+
+    public void clearProduct () {
+        BrowserUtils.waitForClickablility(removeButton, 5);
+        removeButton.click();
+        BrowserUtils.waitFor(3);
+
+        String expectedMessage = "SEPETINIZDE ÜRÜN BULUNMAMAKTADIR";
+        String actualMessage = clearMessage.getText();
+
+        Assert.assertEquals(expectedMessage, actualMessage);
     }
 
 
