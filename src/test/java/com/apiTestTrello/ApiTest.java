@@ -3,8 +3,9 @@ package com.apiTestTrello;
 import com.utils.ConfigReader;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
+
 
 import java.util.Arrays;
 import java.util.Random;
@@ -15,8 +16,8 @@ import static org.hamcrest.Matchers.equalTo;
 public class ApiTest {
 
 
-    @BeforeAll
-    public static void background(){
+    @Before
+    public void background(){
         RestAssured.baseURI = ConfigReader.get("baseURI");
         RestAssured.basePath = ConfigReader.get("basePath");
     }
