@@ -3,6 +3,7 @@ package com.uiTestBeymen.pages;
 import com.utils.*;
 import org.junit.Assert;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -62,6 +63,14 @@ public class Page extends TestBase {
         }
         return allURL;
     }
+
+    public void clearSearchBar() {
+        searchBox.sendKeys(Keys.CONTROL + "a" + Keys.DELETE);
+        BrowserUtils.waitFor(2);
+    }
+
+
+
 
 
 
